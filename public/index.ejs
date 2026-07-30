@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobFinder - Find Your Dream Job</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:#fff;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+}
+
+nav ul li a:hover{
+    color:#2563eb;
+}
+
+.btn{
+    padding:10px 22px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+.login{
+    background:white;
+    border:2px solid #2563eb;
+    color:#2563eb;
+}
+
+.signup{
+    background:#2563eb;
+    color:white;
+}
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:80px 8%;
+    flex-wrap:wrap;
+}
+
+.left{
+    flex:1;
+    min-width:320px;
+}
+
+.left h1{
+    font-size:55px;
+    margin-bottom:20px;
+    color:#222;
+}
+
+.left span{
+    color:#2563eb;
+}
+
+.left p{
+    font-size:18px;
+    color:#555;
+    margin-bottom:35px;
+    line-height:1.6;
+}
+
+.search-box{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.search-box input{
+    flex:1;
+    min-width:200px;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:16px;
+}
+
+.search-box button{
+    padding:15px 30px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.search-box button:hover{
+    background:#1d4ed8;
+}
+
+.right{
+    flex:1;
+    text-align:center;
+    min-width:320px;
+}
+
+.right img{
+    width:90%;
+    max-width:550px;
+    border-radius:20px;
+}
+
+.section{
+    padding:70px 8%;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:36px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.company{
+    color:#2563eb;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.apply{
+    margin-top:20px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    text-align:center;
+}
+
+.feature-box{
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.feature-box h3{
+    margin:15px 0;
+}
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:50px;
+}
+
+@media(max-width:900px){
+
+nav{
+    flex-direction:column;
+}
+
+nav ul{
+    margin:20px 0;
+}
+
+.hero{
+    flex-direction:column-reverse;
+    text-align:center;
+}
+
+.left h1{
+    font-size:40px;
+}
+
+.search-box{
+    flex-direction:column;
+}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">JobFinder</div>
+
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="/jobs">Jobs</a></li>
+<li><a href="/Applied">Applied</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+
+<div>
+    <ul>
+        <li><a href="/login" class="btn login">Login</a></li>
+      <li> <a href="/signup" class="btn login">Sign up</a></li>
+    </ul>
+
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="left">
+
+<h1>Find Your <span>Dream Job</span> Today</h1>
+
+<p>
+Search thousands of jobs from top companies and build
+your career with confidence.
+</p>
+
+<div class="search-box">
+
+<input type="text" id="job" placeholder="Job Title">
+
+<input type="text" id="location" placeholder="Location">
+
+<button  onclick="searchJob()" style="color:white;border:#1d4ed8">Search</button>
+
+</div>
+<div id="searchedjobs">
+
+</div>
+</div>
+
+<div class="right">
+
+<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900" alt="Job Search">
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Featured Jobs</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Frontend Developer</h3>
+<p class="company">Google</p>
+<p>📍 Bangalore</p>
+<p>₹10-18 LPA</p>
+<button class="apply">Apply Now</button>
+</div>
+
+<div class="card">
+<h3>Backend Developer</h3>
+<p class="company">Microsoft</p>
+<p>📍 Hyderabad</p>
+<p>₹12-20 LPA</p>
+<button class="apply">Apply Now</button>
+</div>
+
+<div class="card">
+<h3>Full Stack Developer</h3>
+<p class="company">Amazon</p>
+<p>📍 Pune</p>
+<p>₹15-25 LPA</p>
+<button class="apply">Apply Now</button>
+</div>
+
+<div class="card">
+<h3>UI/UX Designer</h3>
+<p class="company">Adobe</p>
+<p>📍 Noida</p>
+<p>₹8-15 LPA</p>
+<button class="apply">Apply Now</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Why Choose JobFinder?</h2>
+
+<div class="features">
+
+<div class="feature-box">
+<h3>💼 20,000+ Jobs</h3>
+<p>New opportunities added every day.</p>
+</div>
+
+<div class="feature-box">
+<h3>🏢 1000+ Companies</h3>
+<p>Trusted by leading organizations.</p>
+</div>
+
+<div class="feature-box">
+<h3>⚡ Quick Apply</h3>
+<p>Apply for jobs in one click.</p>
+</div>
+
+<div class="feature-box">
+<h3>👨‍💼 Career Growth</h3>
+<p>Build your professional career faster.</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 JobFinder | All Rights Reserved</p>
+
+</footer>
+
+<script>
+
+const searchJob=async(req,res)=>{
+    const searchjob=document.getElementById("searchedjob");
+    const job=document.getElementById("job").value;
+    const location=document.getElementById("location").value;
+const response=await fetch('/search',{
+    method:"POST",
+    headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify({job,location})
+
+});
+const result=await response.json();
+ searchedjobs.innerHTML = "";
+
+    if(result.length === 0){
+        searchedjobs.innerHTML = "<h2>No Jobs Found</h2>";
+        return;
+    }
+
+    result.forEach(element => {
+
+        searchedjobs.innerHTML += `
+            <div class="card">
+                <h3>${element.title}</h3>
+                <p class="company">${element.company_name}</p>
+                <p>${element.location}</p>
+                
+                <button class="apply">Apply Now</button>
+            </div>
+        `;
+
+    });
+
+}
+</script>
+
+</body>
+</html>

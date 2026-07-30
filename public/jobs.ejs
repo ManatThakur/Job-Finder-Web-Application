@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Job Board</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+h1{
+    text-align:center;
+    margin:20px;
+}
+
+#jobs{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card h2{
+    color:#1e88e5;
+    margin-bottom:10px;
+}
+
+.card p{
+    margin:8px 0;
+}
+
+.card a{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    background:#1e88e5;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.card a:hover{
+    background:#1565c0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Latest Jobs</h1>
+
+<div id="jobs"></div>
+
+<script>
+
+const URL = "https://www.arbeitnow.com/api/job-board-api";
+
+async function getJobs(){
+
+    try{
+
+        const response = await fetch(URL);
+        const result = await response.json();
+
+        const jobsDiv = document.getElementById("jobs");
+
+        result.data.forEach(job=>{
+
+            const card = document.createElement("div");
+
+            card.className = "card";
+
+            card.innerHTML = `
+            
+            <h2>${job.title}</h2>
+
+            <p><strong>Company:</strong> ${job.company_name}</p>
+
+            <p><strong>Location:</strong> ${job.location}</p>
+
+            <p><strong>Remote:</strong> ${job.remote ? "Yes" : "No"}</p>
+
+           
+
+            <button onclick='appliedJobs(
+    ${JSON.stringify(job.company_name)},
+    ${JSON.stringify(job.title)},
+    ${JSON.stringify(job.location)},
+    ${JSON.stringify(job.remote)}
+)'>
+    Apply Now
+</button>
+`;
+        jobsDiv.appendChild(card);
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+getJobs();
+
+async function appliedJobs(company_name, title, location,remote) {
+    
+    try{
+    const response=await fetch("/Applied",{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ company_name,title,location,remote })
+      });
+      if (response.ok) {
+    window.location.href = "/Applied";
+} else {
+    alert("Failed to apply");
+}
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error adding item');
+    }
+}
+    
+    
+    
+
+</script>
+
+</body>
+</html>
