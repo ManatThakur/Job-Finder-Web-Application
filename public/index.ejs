@@ -386,19 +386,18 @@ your career with confidence.
 <script>
 
 const searchJob=async(req,res)=>{
-    const searchjob=document.getElementById("searchedjob");
+    const searchedjobs=document.getElementById("searchedjobs");
     const job=document.getElementById("job").value;
     const location=document.getElementById("location").value;
-const response=await fetch('/search',{
-    method:"POST",
-    headers: {
+    const response=await fetch('/search',{
+        method:"POST",
+        headers: {
             "Content-Type": "application/json"
         },
         body:JSON.stringify({job,location})
-
-});
-const result=await response.json();
- searchedjobs.innerHTML = "";
+    });
+    const result=await response.json();
+    searchedjobs.innerHTML = "";
 
     if(result.length === 0){
         searchedjobs.innerHTML = "<h2>No Jobs Found</h2>";
