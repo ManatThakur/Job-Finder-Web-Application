@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "job-project",
   "builds": [
     {
       "src": "server.js",

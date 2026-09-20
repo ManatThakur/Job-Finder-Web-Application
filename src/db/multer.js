@@ -1,9 +1,17 @@
-const multer = require("multer");
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
+
+const uploadDirectory = process.env.VERCEL
+    ? path.join('/tmp', 'uploads')
+    : path.join(__dirname, '..', '..', 'uploads');
+
+fs.mkdirSync(uploadDirectory, { recursive: true });
 
 const storage = multer.diskStorage({
-    destination: "uploads/",
+    destination: uploadDirectory,
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
 
