@@ -6,5 +6,6 @@ const authenticate=require('../middleware/authenticate.js');
 console.log("authenticate:", authenticate);
 
 FrontRouter.get('/',authenticate.authenticate, frontPage.GetPage);
+FrontRouter.post('/',authenticate.authenticate, frontPage.GetPage);
 
 module.exports=FrontRouter;
